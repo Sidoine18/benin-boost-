@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | Bénin Boost Digital Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #0A192F;
+            --accent: #FFD700;
+            --white: #ffffff;
+            --gray: #f4f7f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { display: flex; height: 100vh; overflow: hidden; background: var(--white); }
+
+        /* --- CÔTÉ GAUCHE : VISUEL --- */
+        .side-visual {
+            flex: 1.2;
+            background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)), 
+                        url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            color: var(--white);
+        }
+
+        .side-visual h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 20px; }
+        .side-visual h1 span { color: var(--accent); }
+
+        /* --- CÔTÉ DROIT : FORMULAIRE --- */
+        .side-form {
+            flex: 1;
+            padding: 50px 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-header { margin-bottom: 30px; }
+        .form-header h2 { font-size: 2rem; color: var(--primary); }
+
+        form { display: flex; flex-direction: column; gap: 20px; }
+
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group label { font-size: 0.85rem; font-weight: 600; color: var(--primary); }
+        .input-group input {
+            padding: 14px;
+            border: 2px solid var(--gray);
+            border-radius: 10px;
+            outline: none;
+            background: var(--gray);
+            transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--accent); background: white; }
+
+        .forgot-pass {
+            text-align: right;
+            font-size: 0.85rem;
+        }
+        .forgot-pass a { color: #666; text-decoration: none; transition: 0.3s; }
+        .forgot-pass a:hover { color: var(--primary); font-weight: 600; }
+
+        .btn-login {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+        .btn-login:hover { background: var(--accent); color: var(--primary); transform: translateY(-2px); }
+
+        .divider {
+            text-align: center;
+            position: relative;
+            margin: 25px 0;
+            color: #888;
+            font-size: 0.85rem;
+        }
+        .divider::before, .divider::after {
+            content: ""; position: absolute; top: 50%; width: 40%; height: 1px; background: #ddd;
+        }
+        .divider::before { left: 0; } .divider::after { right: 0; }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .google-btn:hover { background: #f9f9f9; }
+
+        .register-link { text-align: center; margin-top: 30px; font-size: 0.9rem; }
+        .register-link a { color: var(--primary); font-weight: 700; text-decoration: none; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .side-visual { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="side-visual">
+        <h1>Bon retour sur <br><span>Bénin Boost</span>.</h1>
+        <p>Connectez-vous pour continuer votre apprentissage et accéder à vos projets.</p>
+    </section>
+
+    <section class="side-form">
+        <div class="form-header">
+            <h2>Connexion</h2>
+            <p>Heureux de vous revoir parmi nous.</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="votre@email.com" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Mot de passe</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+
+            <div class="forgot-pass">
+                <a href="#" id="forgotBtn">Mot de passe oublié ?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Se connecter</button>
+            
+            <div class="divider">OU</div>
+
+            <button type="button" class="google-btn" id="googleBtn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_广泛_logo.png" width="20" alt="Google">
+                Continuer avec Google
+            </button>
+        </form>
+
+        <p class="register-link">Pas encore de compte ? <a href="register.html">Créer un compte</a></p>
+    </section>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            GoogleAuthProvider, 
+            signInWithPopup,
+            sendPasswordResetEmail 
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNukJT0_Z478WyPUVQch9AJ2-0BU1FdWk",
+            authDomain: "benin-boost-digital-service.firebaseapp.com",
+            projectId: "benin-boost-digital-service",
+            appId: "1:1000135726407:web:9a8b71be4478374d5ee862"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // CONNEXION CLASSIQUE
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                window.location.href = "formations.html";
+            } catch (error) {
+                alert("Erreur : Email ou mot de passe incorrect.");
+            }
+        });
+
+        // CONNEXION GOOGLE
+        document.getElementById('googleBtn').addEventListener('click', async () => {
+            try {
+                await signInWithPopup(auth, provider);
+                window.location.href = "formations.html";
+            } catch (error) {
+                console.error(error);
+            }
+        });
+
+        // MOT DE PASSE OUBLIÉ
+        document.getElementById('forgotBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert("Veuillez d'abord saisir votre adresse email dans le champ ci-dessus.");
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                alert("📧 Un email de réinitialisation de mot de passe vous a été envoyé à : " + email);
+            } catch (error) {
+                alert("Erreur : " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÉNIN BOOST DIGITAL SERVICE | Officiel - Transformez votre Avenir</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        /* --- DESIGN SYSTEM : BASÉ SUR LE LOGO --- */
+        :root {
+            /* Couleurs tirées du logo */
+            --teal: #1F6A6B; /* Sarcelle foncé du logo */
+            --teal-dark: #134D4E;
+            --orange: #D47B2E; /* Orange brûlé du logo */
+            --orange-light: rgba(212, 123, 46, 0.1);
+
+            /* Couleurs de base */
+            --white: #ffffff;
+            --black: #05101A; /* Un noir bleuté très sombre */
+            --text-gray: #6C7A8B;
+            --bg-light: #F4F7F9;
+            
+            /* Paramètres */
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: var(--white); color: var(--black); overflow-x: hidden; line-height: 1.6; }
+        html { scroll-behavior: smooth; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 8%; background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); position: fixed; width: 100%; top: 0; z-index: 2000;
+        }
+        .logo-img { height: 60px; /* Taille adaptée */ }
+        .nav-links { display: flex; list-style: none; align-items: center; }
+        .nav-links li { margin-left: 30px; }
+        .nav-links a { color: var(--black); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+        .btn-nav { background: var(--orange); color: var(--white) !important; padding: 10px 20px; border-radius: 8px; font-weight: 700 !important; box-shadow: 0 4px 10px rgba(212, 123, 46, 0.3); }
+        .btn-nav:hover { background: var(--black); transform: translateY(-2px); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh; background: var(--white);
+            display: flex; align-items: center; padding: 0 8%;
+            position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; width: 600px; height: 600px;
+            background: rgba(31, 106, 107, 0.05); filter: blur(150px); border-radius: 50%;
+            top: -100px; right: -100px;
+        }
+        .hero-content { flex: 1.2; z-index: 1; }
+        .hero-content h1 { font-size: 3.5rem; line-height: 1.1; font-weight: 800; color: var(--black); margin-bottom: 25px; }
+        .hero-content h1 span { color: var(--orange); }
+        .hero-content p { font-size: 1.1rem; color: var(--text-gray); max-width: 600px; margin-bottom: 40px; }
+        
+        .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
+        .cta { 
+            padding: 16px 35px; border-radius: 12px; font-weight: 700; text-decoration: none; 
+            transition: var(--transition); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;
+            display: inline-flex; align-items: center; gap: 10px;
+        }
+        .cta-primary { background: var(--orange); color: var(--white); box-shadow: 0 10px 20px rgba(212, 123, 46, 0.2); }
+        .cta-primary:hover { transform: translateY(-5px); background: var(--black); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .cta-outline { border: 2px solid var(--teal); color: var(--teal); }
+        .cta-outline:hover { background: var(--teal); color: var(--white); }
+
+        .hero-image { flex: 1; display: flex; justify-content: flex-end; z-index: 1; }
+        .hero-image img { width: 100%; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.08)); animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        /* --- COMMUNE SECTIONS --- */
+        section { padding: 100px 8%; }
+        .section-header { text-align: center; margin-bottom: 70px; }
+        .section-header h2 { font-size: 2.8rem; font-weight: 800; color: var(--black); margin-bottom: 15px; }
+        .section-header p { color: var(--text-gray); font-size: 1.1rem; }
+        .section-header .line { width: 70px; height: 6px; background: var(--orange); margin: 20px auto 0; border-radius: 10px; }
+
+        /* --- SECTION VALEURS --- */
+        .grid-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .value-card { 
+            padding: 50px 40px; background: var(--bg-light); border-radius: 20px; 
+            transition: var(--transition); position: relative; overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .value-card:hover { background: var(--white); box-shadow: 0 20px 50px rgba(31, 106, 107, 0.08); transform: translateY(-10px); }
+        .value-card i { font-size: 3rem; color: var(--orange); margin-bottom: 25px; display: block; }
+        .value-card h3 { margin-bottom: 15px; font-size: 1.4rem; color: var(--black); }
+        .value-card p { color: var(--text-gray); font-size: 0.95rem; }
+
+        /* --- STATS BAR --- */
+        .stats-bar { background: var(--teal); color: var(--white); display: flex; justify-content: space-around; padding: 70px 8%; text-align: center; flex-wrap: wrap; gap: 30px; }
+        .stat-item h3 { font-size: 3.5rem; font-weight: 800; color: var(--orange); }
+        .stat-item p { font-size: 1rem; opacity: 0.9; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- FORMATIONS --- */
+        #formations { background: var(--bg-light); }
+        .grid-courses { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .course-card { background: var(--white); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: var(--transition); border: 1px solid rgba(0,0,0,0.02); }
+        .course-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(31, 106, 107, 0.1); }
+        .course-img { height: 210px; background-size: cover; background-position: center; position: relative; }
+        .course-type { position: absolute; top: 20px; left: 20px; padding: 6px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .type-free { background: var(--orange-light); color: var(--orange); }
+        .type-paid { background: rgba(31, 106, 107, 0.1); color: var(--teal); }
+        .course-info { padding: 30px; }
+        .course-info h3 { margin-bottom: 10px; font-size: 1.25rem; color: var(--black); }
+        .course-info p { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 25px; }
+        .course-btn { width: 100%; border: 2px solid var(--teal); color: var(--teal); background: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .course-btn:hover { background: var(--teal); color: var(--white); }
+
+        /* --- APP MOBILE --- */
+        .app-mobile { background: var(--white); display: flex; align-items: center; gap: 60px; padding: 100px 8%; }
+        .app-content { flex: 1; }
+        .app-content h2 { font-size: 2.8rem; font-weight: 800; color: var(--black); margin-bottom: 20px; }
+        .app-content p { color: var(--text-gray); margin-bottom: 40px; max-width: 500px; }
+        .app-btns { display: flex; gap: 15px; }
+        .app-btns img { height: 45px; cursor: pointer; transition: var(--transition); }
+        .app-btns img:hover { transform: scale(1.05); }
+        .app-image { flex: 1; display: flex; justify-content: center; }
+        .app-image img { width: 80%; filter: drop-shadow(0 20px 50px rgba(31, 106, 107, 0.15)); }
+
+        /* --- CONTACT --- */
+        #contact { background: var(--bg-light); }
+        .contact-box { background: var(--white); border-radius: 30px; padding: 70px; box-shadow: 0 20px 60px rgba(0,0,0,0.05); display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .contact-info h3 { font-size: 2rem; color: var(--black); margin-bottom: 20px; }
+        .contact-info p { color: var(--text-gray); margin-bottom: 30px; }
+        .info-item { display: flex; align-items: center; gap: 15px; margin-bottom: 15px; color: var(--teal); font-weight: 500; }
+        .info-item i { font-size: 1.1rem; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 18px; margin-bottom: 15px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.08); background: var(--bg-light); outline: none; transition: 0.3s; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--teal); background: var(--white); }
+        .contact-form button { width: 100%; padding: 18px; background: var(--teal); color: var(--white); border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        .contact-form button:hover { background: var(--orange); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 123, 46, 0.2); }
+
+        /* --- FOOTER --- */
+        footer { background: var(--black); color: rgba(255,255,255,0.7); padding: 60px 8%; text-align: center; }
+        .footer-logo img { height: 50px; margin-bottom: 20px; }
+        .social-links { margin-bottom: 30px; }
+        .social-links a { color: var(--white); font-size: 1.6rem; margin: 0 15px; transition: var(--transition); opacity: 0.8; }
+        .social-links a:hover { color: var(--orange); opacity: 1; transform: scale(1.1); }
+        .footer-line { width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 30px 0; }
+        .footer-copy { font-size: 0.85rem; }
+
+        /* --- RESPONSIVE MODERNE --- */
+        @media (max-width: 1024px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .hero-image img { width: 110%; }
+        }
+        @media (max-width: 768px) {
+            section, .hero, .app-mobile { padding: 80px 5%; }
+            .hero { flex-direction: column-reverse; text-align: center; height: auto; padding-top: 130px; padding-bottom: 60px; }
+            .hero-content { margin-top: 40px; }
+            .hero-content h1 { font-size: 2.3rem; }
+            .hero-content p { margin: 0 auto 30px; }
+            .hero-btns { justify-content: center; }
+            .hero-image img { width: 90%; }
+            .nav-links { display: none; } /* On cache pour mobile simple */
+            .section-header h2, .app-content h2 { font-size: 2rem; }
+            .app-mobile { flex-direction: column; text-align: center; }
+            .contact-box { grid-template-columns: 1fr; padding: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home"><img src="benin-boost.png" alt="Bénin Boost Digital Service" class="logo-img"></a>
+        <ul class="nav-links">
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#valeurs">Pourquoi Nous ?</a></li>
+            <li><a href="#formations">Académie</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="login.html" class="btn-nav"><i class="fas fa-user-circle"></i> Espace Membre</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content" data-aos="fade-right">
+            <h1>Boostez votre <span>avenir digital</span> dès aujourd'hui</h1>
+            <p>Formations certifiantes, projets réels et opportunités de carrière. Rejoignez l'élite du numérique au Bénin.</p>
+            <div class="hero-btns">
+                <a href="register.html" class="cta cta-primary">🚀 Rejoindre le réseau</a>
+                <a href="#formations" class="cta cta-outline">🎓 Apprendre un métier</a>
+            </div>
+        </div>
+        <div class="hero-image" data-aos="fade-left">
+            <img src="https://i.ibb.co/4K7RjXw/hero-illustration.png" alt="Impulsion Numérique">
+        </div>
+    </header>
+
+    <section id="valeurs">
+        <div class="section-header" data-aos="fade-up">
+            <h2>L'Excellence Numérique au Bénin</h2>
+            <p>Notre mission : Transformer votre potentiel en expertise de classe mondiale.</p>
+            <div class="line"></div>
+        </div>
+        <div class="grid-values">
+            <div class="value-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-rocket"></i>
+                <h3>Formation 100% Pratique</h3>
+                <p>Oubliez la théorie. Apprenez en réalisant des projets concrets pour le marché.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-users"></i>
+                <h3>Communauté d'Experts</h3>
+                <p>Collaborez avec des mentors et des professionnels pour accélérer votre croissance.</p>
+            </div>
+            <div class="value-card" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-briefcase"></i>
+                <h3>Opportunités Directes</h3>
+                <p>Missions, stages et emplois exclusifs pour les membres certifiés de notre réseau.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stat-item"><h3>+500</h3><p>Jeunes formés</p></div>
+        <div class="stat-item"><h3>+50</h3><p>Projets livrés</p></div>
+        <div class="stat-item"><h3>+100</h3><p>Membres actifs</p></div>
+        <div class="stat-item"><h3>+15</h3><p>Partenaires Tech</p></div>
+    </div>
+
+    <section id="formations">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Propulsez vos Compétences</h2>
+            <p>Accédez à nos programmes phares, gratuits et certifiants.</p>
+            <div class="line"></div>
+        </div>
+        <div class="grid-courses">
+            <div class="course-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=600');">
+                    <span class="course-type type-free">Gratuit</span>
+                </div>
+                <div class="course-info">
+                    <h3>Marketing Digital 101</h3>
+                    <p>Maîtrisez les bases des réseaux sociaux pour booster n'importe quel business.</p>
+                    <button class="course-btn">Voir la formation</button>
+                </div>
+            </div>
+            <div class="course-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600');">
+                    <span class="course-type type-paid">Certifiant</span>
+                </div>
+                <div class="course-info">
+                    <h3>UI/UX Design Masterclass</h3>
+                    <p>Créez des interfaces d'applications et de sites web modernes et intuitives.</p>
+                    <button class="course-btn">S'inscrire</button>
+                </div>
+            </div>
+            <div class="course-card" data-aos="zoom-in" data-aos-delay="300">
+                <div class="course-img" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600');">
+                    <span class="course-type type-paid">Certifiant</span>
+                </div>
+                <div class="course-info">
+                    <h3>Développement Web Fullstack</h3>
+                    <p>Devenez un développeur complet, de la base de données à l'interface client.</p>
+                    <button class="course-btn">S'inscrire</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="app-mobile">
+        <div class="app-content" data-aos="fade-right">
+            <h2>L'Académie dans <br>votre poche</h2>
+            <p>Suivez vos cours partout, discutez avec la communauté et recevez des opportunités en temps réel avec notre application mobile.</p>
+            <div class="app-btns">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png" alt="App Store">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="Google Play">
+            </div>
+        </div>
+        <div class="app-image" data-aos="fade-left">
+            <img src="https://i.ibb.co/Xz9tG7h/phone-mockup.png" alt="Bénin Boost App">
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Contactez nos Experts</h2>
+            <p>Un projet ? Une question ? Notre équipe vous répond rapidement.</p>
+            <div class="line"></div>
+        </div>
+        <div class="contact-box" data-aos="flip-up">
+            <div class="contact-info">
+                <h3>Envoyez une impulsion numérique</h3>
+                <p>N'hésitez pas à nous contacter pour toute demande de formation, de devis ou de collaboration au Bénin.</p>
+                <div class="info-item"><i class="fas fa-map-marker-alt"></i> Cotonou, Bénin</div>
+                <div class="info-item"><i class="fas fa-envelope"></i> contact@beninboost.com</div>
+                <div class="info-item"><i class="fas fa-phone"></i> +229 01 00 00 00 00</div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <input type="text" placeholder="Nom Complet" required>
+                <input type="email" placeholder="Email Professionnel" required>
+                <textarea rows="5" placeholder="Votre Message" required></textarea>
+                <button type="submit">Envoyer le message 🚀</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="https://i.ibb.co/3fdSgJ9/logo-benin-boost.png" alt="Bénin Boost">
+        </div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="footer-copy">&copy; 2026 BÉNIN BOOST DIGITAL SERVICE. Tous droits réservés. <br> Impacter le digital en Afrique.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Initialisation AOS (Animations au scroll)
+        AOS.init({ duration: 1000, once: true, offset: 120 });
+
+        // Firebase Config (déjà fourni)
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNukJT0_Z478WyPUVQch9AJ2-0BU1FdWk",
+            authDomain: "benin-boost-digital-service.firebaseapp.com",
+            projectId: "benin-boost-digital-service",
+            appId: "1:1000135726407:web:9a8b71be4478374d5ee862"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Gestion du Formulaire
+        document.getElementById('contactForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const inputs = e.target.querySelectorAll('input, textarea');
+            try {
+                await addDoc(collection(db, "contacts"), {
+                    nom: inputs[0].value,
+                    email: inputs[1].value,
+                    message: inputs[2].value,
+                    date: new Date()
+                });
+                alert("✅ Message envoyé avec succès !");
+                e.target.reset();
+            } catch (err) { alert("❌ Erreur d'envoi. Veuillez réessayer."); }
+        });
+    </script>
+</body>
+</html>

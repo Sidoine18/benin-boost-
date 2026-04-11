@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Académie | Bénin Boost Digital Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bleu: #0A192F;
+            --noir: #020c1b;
+            --blanc: #ffffff;
+            --or: #FFD700;
+            --vert: #00ff87;
+            --gris: #f4f7f6;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--gris); color: var(--bleu); }
+
+        /* Navigation */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; background: var(--noir); color: white;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-weight: 700; font-size: 1.2rem; text-decoration: none; color: white; }
+        .logo span { color: var(--or); }
+
+        /* Header Académie */
+        .academy-header {
+            background: var(--bleu);
+            color: white;
+            padding: 60px 8% 100px;
+            text-align: center;
+        }
+        .academy-header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+        /* Filtres */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: -30px;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            padding: 12px 25px;
+            border: none;
+            background: white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+        .filter-btn.active { background: var(--or); color: var(--noir); }
+
+        /* Grille de cours */
+        .container { padding: 0 8% 80px; }
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover { transform: translateY(-10px); }
+
+        .card-banner {
+            height: 180px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        .type-badge {
+            position: absolute; top: 15px; left: 15px;
+            padding: 5px 15px; border-radius: 50px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+        }
+        .free { background: var(--vert); color: var(--noir); }
+        .paid { background: var(--or); color: var(--noir); }
+
+        .card-body { padding: 25px; flex-grow: 1; }
+        .card-body h3 { margin-bottom: 10px; font-size: 1.2rem; }
+        .card-body p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
+
+        .meta {
+            display: flex; justify-content: space-between;
+            font-size: 0.8rem; color: #888; margin-bottom: 20px;
+            border-top: 1px solid #eee; padding-top: 15px;
+        }
+
+        .price-row {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .price { font-size: 1.3rem; font-weight: 700; color: var(--bleu); }
+        
+        .start-btn {
+            background: var(--noir); color: white;
+            padding: 10px 20px; border-radius: 8px;
+            text-decoration: none; font-weight: 600;
+            transition: var(--transition); border: none; cursor: pointer;
+        }
+        .start-btn:hover { background: var(--or); color: var(--noir); }
+
+        /* Footer */
+        footer { background: var(--noir); color: white; text-align: center; padding: 30px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">BÉNIN BOOST <span>DIGITAL</span></a>
+        <div id="userStatus" style="font-size: 0.8rem;">Vérification connexion...</div>
+    </nav>
+
+    <header class="academy-header">
+        <h1>Montez en compétences</h1>
+        <p>Des formations pratiques pour dominer le marché du travail en Afrique.</p>
+    </header>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterCourses('all')">Tous les cours</button>
+        <button class="filter-btn" onclick="filterCourses('free')">Gratuits</button>
+        <button class="filter-btn" onclick="filterCourses('paid')">Certifiants (Payants)</button>
+    </div>
+
+    <main class="container">
+        <div class="courses-grid" id="coursesList">
+            
+            <div class="card" data-type="free">
+                <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1432888622747-4eb9a8f2c1d8?q=80&w=500');">
+                    <span class="type-badge free">Gratuit</span>
+                </div>
+                <div class="card-body">
+                    <h3>Marketing Digital 101</h3>
+                    <p>Comprendre les algorithmes Facebook et TikTok pour booster une marque.</p>
+                    <div class="meta">
+                        <span><i class="fa fa-clock"></i> 4h de cours</span>
+                        <span><i class="fa fa-signal"></i> Débutant</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">0 FCFA</span>
+                        <button class="start-btn" onclick="accessCourse('Marketing Digital 101')">Suivre</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-type="paid">
+                <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?q=80&w=500');">
+                    <span class="type-badge paid">Premium</span>
+                </div>
+                <div class="card-body">
+                    <h3>UI/UX Design Masterclass</h3>
+                    <p>Devenez un pro de Figma et créez des prototypes d'applications incroyables.</p>
+                    <div class="meta">
+                        <span><i class="fa fa-clock"></i> 12h de cours</span>
+                        <span><i class="fa fa-certificate"></i> Certificat inclus</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">35.000 FCFA</span>
+                        <button class="start-btn" onclick="accessCourse('UI/UX Design')">S'inscrire</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" data-type="paid">
+                <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=500');">
+                    <span class="type-badge paid">Premium</span>
+                </div>
+                <div class="card-body">
+                    <h3>Développement Web Fullstack</h3>
+                    <p>Apprenez à coder des sites complets avec HTML, CSS, JS et Firebase.</p>
+                    <div class="meta">
+                        <span><i class="fa fa-clock"></i> 20h de cours</span>
+                        <span><i class="fa fa-code"></i> Avancé</span>
+                    </div>
+                    <div class="price-row">
+                        <span class="price">50.000 FCFA</span>
+                        <button class="start-btn" onclick="accessCourse('Web Fullstack')">S'inscrire</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BÉNIN BOOST DIGITAL SERVICE Académie</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        // Ta config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNukJT0_Z478WyPUVQch9AJ2-0BU1FdWk",
+            authDomain: "benin-boost-digital-service.firebaseapp.com",
+            projectId: "benin-boost-digital-service",
+            storageBucket: "benin-boost-digital-service.firebasestorage.app",
+            messagingSenderId: "1000135726407",
+            appId: "1:1000135726407:web:9a8b71be4478374d5ee862"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        let userIsConnected = false;
+
+        // Vérifier la connexion
+        onAuthStateChanged(auth, (user) => {
+            const statusDiv = document.getElementById('userStatus');
+            if (user) {
+                userIsConnected = true;
+                statusDiv.innerHTML = `<span style="color:var(--vert)"><i class="fa fa-user"></i> ${user.email}</span>`;
+            } else {
+                userIsConnected = false;
+                statusDiv.innerHTML = `<span style="color:var(--or)">Non connecté</span>`;
+            }
+        });
+
+        // Fonction d'accès au cours (Globale)
+        window.accessCourse = function(courseName) {
+            if (!userIsConnected) {
+                alert("⛔ STOP ! Vous devez être connecté pour accéder aux formations de Bénin Boost.");
+                // Redirection vers index.html section contact/login
+                window.location.href = "index.html#contact";
+            } else {
+                alert("✅ Accès autorisé ! Bienvenue dans le module : " + courseName);
+                // Ici tu pourrais ouvrir une page de lecteur vidéo
+            }
+        }
+
+        // Système de filtrage
+        window.filterCourses = function(type) {
+            const cards = document.querySelectorAll('.card');
+            const btns = document.querySelectorAll('.filter-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (type === 'all' || card.getAttribute('data-type') === type) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
