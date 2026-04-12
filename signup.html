@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer un compte | BÉNIN BOOST DIGITAL SERVICE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #006363;
+            --accent: #D16B00;
+            --dark: #002b2b;
+            --light: #F8FAFA;
+            --white: #ffffff;
+            --error: #e74c3c;
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--light); color: var(--dark); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+
+        .auth-container { width: 100%; max-width: 500px; background: var(--white); padding: 40px; border-radius: 24px; box-shadow: var(--shadow); }
+        .logo-box { text-align: center; margin-bottom: 30px; }
+        .logo-box img { height: 60px; margin-bottom: 15px; }
+        .logo-box h1 { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 14px; border: 1px solid #e2e8f0; border-radius: 12px; font-family: inherit; transition: var(--transition);
+        }
+        .form-group input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(0, 99, 99, 0.1); }
+
+        /* Sélection du rôle */
+        .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .role-option {
+            border: 2px solid #e2e8f0; padding: 15px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition);
+        }
+        .role-option i { display: block; font-size: 1.5rem; margin-bottom: 8px; color: #94a3b8; }
+        .role-option span { font-size: 0.85rem; font-weight: 700; color: #64748b; }
+        
+        input[type="radio"]:checked + .role-option { border-color: var(--primary); background: rgba(0, 99, 99, 0.05); }
+        input[type="radio"]:checked + .role-option i { color: var(--primary); }
+        input[type="radio"]:checked + .role-option span { color: var(--primary); }
+        .hidden-radio { display: none; }
+
+        .btn {
+            width: 100%; padding: 16px; border-radius: 12px; font-weight: 800; border: none; cursor: pointer; transition: var(--transition); font-family: inherit; font-size: 1rem;
+        }
+        .btn-primary { background: var(--primary); color: white; margin-top: 10px; }
+        .btn-google { background: white; border: 1px solid #e2e8f0; color: var(--dark); margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .footer-link { text-align: center; margin-top: 25px; font-size: 0.9rem; }
+        .footer-link a { color: var(--primary); text-decoration: none; font-weight: 700; }
+
+        /* Notification */
+        #msgBox { padding: 15px; border-radius: 12px; margin-bottom: 20px; display: none; font-size: 0.85rem; font-weight: 600; text-align: center; }
+        .msg-error { background: #fdeaea; color: var(--error); border: 1px solid #f9d6d6; }
+        .msg-success { background: #eafaf1; color: #2ecc71; border: 1px solid #d5f5e3; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="logo-box">
+            <img src="benin-boost.jpg" alt="Logo">
+            <h1>BÉNIN BOOST</h1>
+            <p style="color: #64748b; font-size: 0.9rem; margin-top: 5px;">Rejoignez le futur du digital au Bénin</p>
+        </div>
+
+        <div id="msgBox"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" id="regName" placeholder="Ex: Sidoine Ahizigbe" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" placeholder="votre@email.com" required>
+            </div>
+
+            <div class="role-selector">
+                <label>
+                    <input type="radio" name="userRole" value="apprenant" class="hidden-radio" checked>
+                    <div class="role-option">
+                        <i class="fas fa-user-graduate"></i>
+                        <span>Apprenant</span>
+                    </div>
+                </label>
+                <label>
+                    <input type="radio" name="userRole" value="responsable" class="hidden-radio">
+                    <div class="role-option">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Responsable</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input type="password" id="regPass" placeholder="••••••••" required>
+            </div>
+
+            <div class="form-group">
+                <label>Confirmer le mot de passe</label>
+                <input type="password" id="regConfirm" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="btnSubmit">Créer mon compte</button>
+        </form>
+
+        <button class="btn btn-google" id="btnGoogle">
+            <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="20">
+            Continuer avec Google
+        </button>
+
+        <p class="footer-link">Déjà inscrit ? <a href="login.html">Se connecter</a></p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, GoogleAuthProvider, signInWithPopup, updateProfile } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNukJT0_Z478WyPUVQch9AJ2-0BU1FdWk",
+            authDomain: "benin-boost-digital-service.firebaseapp.com",
+            projectId: "benin-boost-digital-service",
+            storageBucket: "benin-boost-digital-service.firebasestorage.app",
+            messagingSenderId: "1000135726407",
+            appId: "1:1000135726407:web:9a8b71be4478374d5ee862",
+            measurementId: "G-Q2RZXZHW7C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const msgBox = document.getElementById('msgBox');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        function showMsg(text, type) {
+            msgBox.textContent = text;
+            msgBox.className = type === 'error' ? 'msg-error' : 'msg-success';
+            msgBox.style.display = 'block';
+        }
+
+        // --- INSCRIPTION EMAIL ---
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
+            const role = document.querySelector('input[name="userRole"]:checked').value;
+
+            if (pass !== confirm) return showMsg("Les mots de passe ne correspondent pas.", "error");
+            if (pass.length < 6) return showMsg("Mot de passe trop court (min 6 caractères).", "error");
+
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Création...';
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+                const user = userCredential.user;
+
+                // 1. Mettre à jour le nom dans le profil Auth
+                await updateProfile(user, { displayName: name });
+
+                // 2. Envoyer email de vérification
+                await sendEmailVerification(user);
+
+                // 3. Sauvegarder dans Firestore
+                await setDoc(doc(db, "users", user.uid), {
+                    name: name,
+                    email: email,
+                    role: role,
+                    status: role === "responsable" ? "pending" : "active",
+                    createdAt: new Date()
+                });
+
+                showMsg("✅ Compte créé ! Veuillez vérifier votre email avant de vous connecter.", "success");
+                setTimeout(() => window.location.href = "login.html", 4000);
+
+            } catch (error) {
+                console.error(error);
+                showMsg("Erreur : " + error.message, "error");
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = "Créer mon compte";
+            }
+        });
+
+        // --- INSCRIPTION GOOGLE ---
+        document.getElementById('btnGoogle').addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                // Vérifier si l'utilisateur existe déjà pour ne pas écraser son rôle
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                
+                if (!docSnap.exists()) {
+                    await setDoc(doc(db, "users", user.uid), {
+                        name: user.displayName,
+                        email: user.email,
+                        role: "apprenant", // Google est apprenant par défaut
+                        status: "active",
+                        createdAt: new Date()
+                    });
+                }
+
+                window.location.href = "formations.html";
+            } catch (error) {
+                showMsg("Erreur Google : " + error.message, "error");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formations | BÉNIN BOOST DIGITAL SERVICE</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
+
+    <style>
+        :root {
+            --primary: #006363;
+            --accent: #D16B00;
+            --dark: #002b2b;
+            --light: #F4F8F8;
+            --white: #ffffff;
+            --free-color: #28a745;
+            --paid-color: #007bff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--light); color: #333; overflow-x: hidden; }
+
+        /* --- NAVIGATION --- */
+        header { 
+            background: var(--white); 
+            padding: 15px 0; 
+            box-shadow: var(--shadow); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .auth-zone { display: flex; gap: 15px; align-items: center; }
+
+        /* --- HERO --- */
+        .hero { background: var(--dark); color: white; padding: 60px 0; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+        .hero p { opacity: 0.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+        /* --- FILTRES --- */
+        .filters { 
+            max-width: 1200px; 
+            margin: 40px auto 20px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+            padding: 0 20px;
+        }
+        .filter-btn { 
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            border: 1px solid #ddd; 
+            background: white; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: var(--transition);
+        }
+        .filter-btn.active, .filter-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* --- GRID DE FORMATIONS --- */
+        .courses-grid { 
+            max-width: 1200px; 
+            margin: 0 auto 80px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 30px; 
+            padding: 20px; 
+        }
+
+        .course-card { 
+            background: white; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            box-shadow: var(--shadow); 
+            transition: var(--transition); 
+            display: flex; 
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .course-card:hover { transform: translateY(-10px); }
+
+        .course-thumb { position: relative; height: 190px; }
+        .course-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .type-badge { 
+            position: absolute; top: 15px; right: 15px; 
+            padding: 6px 14px; border-radius: 50px; 
+            color: white; font-size: 0.75rem; font-weight: 800; 
+        }
+        .type-badge.free { background: var(--free-color); }
+        .type-badge.paid { background: var(--paid-color); }
+
+        .course-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .course-meta { display: flex; justify-content: space-between; font-size: 0.85rem; color: #777; margin-bottom: 12px; }
+        .course-content h3 { font-size: 1.25rem; color: var(--dark); margin-bottom: 15px; line-height: 1.4; }
+        .course-price { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+
+        .btn-action { 
+            width: 100%; padding: 14px; border-radius: 12px; 
+            border: none; font-weight: 700; cursor: pointer; 
+            transition: var(--transition); text-align: center; text-decoration: none; 
+        }
+        .btn-free { background: var(--primary); color: white; }
+        .btn-paid { background: var(--accent); color: white; }
+        .btn-outline { border: 1px solid var(--primary); color: var(--primary); background: transparent; }
+
+        /* --- ANIMATIONS --- */
+        .loading-spinner { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--primary); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .hero p { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <a href="index.html" class="logo">BÉNIN BOOST</a>
+            <div class="auth-zone" id="authZone">
+                <span class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Développez vos Compétences Digitales</h1>
+            <p>Accédez à des formations de qualité conçues par des experts pour propulser votre carrière au Bénin et ailleurs.</p>
+        </div>
+    </section>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterData('all')">Tous les cours</button>
+        <button class="filter-btn" onclick="filterData('marketing')">Marketing</button>
+        <button class="filter-btn" onclick="filterData('design')">Design</button>
+        <button class="filter-btn" onclick="filterData('dev')">Développement</button>
+        <button class="filter-btn" onclick="filterData('business')">Business</button>
+    </div>
+
+    <div class="courses-grid" id="courseGrid">
+        </div>
+
+    <script type="module">
+        // --- 1. CONFIGURATION FIREBASE ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNukJT0_Z478WyPUVQch9AJ2-0BU1FdWk",
+            authDomain: "benin-boost-digital-service.firebaseapp.com",
+            projectId: "benin-boost-digital-service",
+            storageBucket: "benin-boost-digital-service.firebasestorage.app",
+            messagingSenderId: "1000135726407",
+            appId: "1:1000135726407:web:9a8b71be4478374d5ee862",
+            measurementId: "G-Q2RZXZHW7C"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- 2. DONNÉES DES COURS ---
+        const COURS_DATA = [
+            { id: "mkt-1", category: "marketing", type: "free", title: "Introduction au Marketing Digital", duration: "2 sem", level: "Débutant", price: 0, image: "https://images.unsplash.com/photo-1533750349088-cd871a92f312?auto=format&fit=crop&w=500" },
+            { id: "dev-1", category: "dev", type: "paid", title: "Développement Web Fullstack React", duration: "8 sem", level: "Avancé", price: 10000, image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=500" },
+            { id: "dsg-1", category: "design", type: "free", title: "Design Graphique avec Canva Pro", duration: "1 sem", level: "Débutant", price: 0, image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=500" },
+            { id: "biz-1", category: "business", type: "paid", title: "Freelancing : Gagner sa vie en ligne", duration: "4 sem", level: "Intermédiaire", price: 5000, image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=500" }
+        ];
+
+        // --- 3. GESTION DE L'INTERFACE UTILISATEUR ---
+        onAuthStateChanged(auth, (user) => {
+            const authZone = document.getElementById('authZone');
+            if (user) {
+                authZone.innerHTML = `
+                    <span style="font-weight:600; font-size:0.9rem;">👋 ${user.email.split('@')[0]}</span>
+                    <button id="logoutBtn" class="filter-btn">Déconnexion</button>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+            } else {
+                authZone.innerHTML = `
+                    <a href="login.html" class="btn-outline btn-action" style="padding: 8px 15px; font-size: 0.9rem;">Connexion</a>
+                    <a href="signup.html" class="btn-free btn-action" style="padding: 8px 15px; font-size: 0.9rem;">Rejoindre</a>
+                `;
+            }
+        });
+
+        // --- 4. FONCTIONS DE RENDU ET FILTRAGE ---
+        window.renderCourses = (data) => {
+            const grid = document.getElementById('courseGrid');
+            grid.innerHTML = data.map(course => `
+                <div class="course-card">
+                    <div class="course-thumb">
+                        <img src="${course.image}" alt="${course.title}">
+                        <span class="type-badge ${course.type}">${course.type === 'free' ? '🟢 Gratuit' : '🔵 Premium'}</span>
+                    </div>
+                    <div class="course-content">
+                        <div class="course-meta">
+                            <span><i class="fas fa-layer-group"></i> ${course.level}</span>
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                        </div>
+                        <h3>${course.title}</h3>
+                        <div class="course-price">${course.price > 0 ? course.price + ' FCFA' : 'OFFERT'}</div>
+                        ${course.type === 'free' 
+                            ? `<button onclick="handleAccessFree('${course.id}')" class="btn-action btn-free">Suivre le cours</button>` 
+                            : `<button onclick="handlePayment(${course.price}, '${course.title}', '${course.id}')" class="btn-action btn-paid">Acheter l'accès</button>`
+                        }
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        window.filterData = (cat) => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            if(cat === 'all') renderCourses(COURS_DATA);
+            else renderCourses(COURS_DATA.filter(c => c.category === cat));
+        };
+
+        // --- 5. LOGIQUE D'ACCÈS ET PAIEMENT ---
+        window.handleAccessFree = (id) => {
+            if (!auth.currentUser) {
+                alert("🔒 Pour accéder aux formations gratuites, vous devez être membre du réseau.");
+                window.location.href = "login.html";
+            } else {
+                window.location.href = `courses/view.html?id=${id}`;
+            }
+        };
+
+        window.handlePayment = (amount, title, id) => {
+            if (!auth.currentUser) {
+                alert("🔒 Connectez-vous d'abord pour effectuer cet achat.");
+                window.location.href = "login.html";
+                return;
+            }
+
+            FedaPay.init({ public_key: 'pk_live_y7fqKxfU03QR3wqVRvI0k3GY' });
+            FedaPay.checkout({
+                amount: amount,
+                currency: "XOF",
+                description: "Achat : " + title,
+                callback: async function(response) {
+                    if (response.status === 'approved') {
+                        // Enregistrement dans Firebase
+                        const user = auth.currentUser;
+                        await setDoc(doc(db, "users", user.uid, "mes_cours", id), {
+                            nom: title,
+                            date: new Date(),
+                            statut: "debloque"
+                        });
+                        alert("✅ Paiement réussi ! Le cours est débloqué.");
+                        window.location.href = "dashboard.html";
+                    }
+                }
+            });
+        };
+
+        // Initialisation par défaut
+        renderCourses(COURS_DATA);
+    </script>
+</body>
+</html>
