@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription | Bénin Boost Digital Service</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-vert: #006363;
+            --primary-dark: #004d4d;
+            --accent-orange: #D16B00;
+            --bg-light: #F4F7F7;
+            --white: #ffffff;
+            --text-main: #1A202C;
+            --border: #E2E8F0;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-vert) 0%, var(--primary-dark) 100%);
+            padding: 60px 20px 120px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+        .hero p { opacity: 0.9; font-size: 1.1rem; }
+
+        /* --- FORM CONTAINER --- */
+        .container {
+            max-width: 700px;
+            width: 90%;
+            margin: -80px auto 60px;
+        }
+
+        .signup-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- FORM STYLES --- */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-vert);
+            font-weight: 700;
+            margin: 25px 0 15px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+        }
+
+        .section-title:first-child { margin-top: 0; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group { margin-bottom: 18px; position: relative; }
+        .full-width { grid-column: span 2; }
+
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: #4A5568; }
+
+        .input-wrapper { position: relative; }
+        .input-wrapper i {
+            position: absolute; left: 15px; top: 50%;
+            transform: translateY(-50%); color: var(--primary-vert);
+            opacity: 0.6;
+        }
+
+        input, select, textarea {
+            width: 100%; padding: 12px 15px 12px 45px;
+            border: 1.5px solid var(--border); border-radius: 12px;
+            font-family: inherit; font-size: 1rem; transition: all 0.3s ease;
+        }
+
+        textarea { padding-left: 15px; height: 100px; resize: none; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--primary-vert);
+            box-shadow: 0 0 0 4px rgba(0, 99, 99, 0.1);
+        }
+
+        /* --- BUTTON --- */
+        .btn-submit {
+            width: 100%; background-color: var(--accent-orange); color: white;
+            padding: 16px; border: none; border-radius: 12px;
+            font-weight: 800; font-size: 1.1rem; cursor: pointer;
+            transition: all 0.3s ease; margin-top: 20px;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-vert);
+            transform: translateY(-2px);
+        }
+
+        /* --- TRUST SECTION --- */
+        .trust-info {
+            text-align: center; margin-top: 20px;
+            font-size: 0.85rem; color: #718096;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+            .hero h1 { font-size: 1.7rem; }
+            .signup-card { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+    <h1>Inscris-toi et booste ta carrière digitale 🚀</h1>
+    <p>Remplis ce formulaire et notre équipe te contactera rapidement</p>
+</header>
+
+<div class="container">
+    <div class="signup-card">
+        <form id="registrationForm">
+            
+            <div class="section-title"><i class="fas fa-user"></i> Informations personnelles</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Nom</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" name="nom" placeholder="Ton nom" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="prenom" placeholder="Ton prénom" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Sexe</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-venus-mars"></i>
+                        <select name="sexe" required>
+                            <option value="" disabled selected>Choisir...</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Date de naissance</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar"></i>
+                        <input type="date" name="naissance" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title"><i class="fas fa-phone"></i> Contact & Localisation</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Numéro WhatsApp</label>
+                    <div class="input-wrapper">
+                        <i class="fab fa-whatsapp"></i>
+                        <input type="tel" name="whatsapp" placeholder="+229 00 00 00 00" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email (Optionnel)</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" name="email" placeholder="ton@email.com">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title"><i class="fas fa-graduation-cap"></i> Profil Académique</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Niveau d'étude</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-layer-group"></i>
+                        <select name="niveau" required>
+                            <option value="Secondaire">Secondaire</option>
+                            <option value="Université">Université</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Domaine d'étude</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-book"></i>
+                        <input type="text" name="domaine" placeholder="Ex: Informatique..." required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title"><i class="fas fa-laptop-code"></i> Ta Formation</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Formation choisie</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-list"></i>
+                        <select name="formation" id="formationSelect" required>
+                            <option value="Canva">Design Graphique avec Canva</option>
+                            <option value="Facebook-Ads">Facebook Ads & Marketing</option>
+                            <option value="Montage-Video">Montage Vidéo (CapCut / Premiere)</option>
+                            <option value="Community-Management">Gestion des Réseaux Sociaux</option>
+                            <option value="Personal-Branding">Personal Branding</option>
+                            <option value="Web-Design">Initiation au Web Design</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Disponibilité</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-clock"></i>
+                        <select name="disponibilite" required>
+                            <option value="Matin">Matin</option>
+                            <option value="Soir">Soir</option>
+                            <option value="Week-end">Week-end</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Pourquoi veux-tu suivre cette formation ?</label>
+                    <textarea name="motivation" placeholder="Dis-nous ce qui te motive..." required></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="btnSubmit">
+                Valider mon inscription <i class="fas fa-paper-plane"></i>
+            </button>
+
+            <div class="trust-info">
+                <i class="fas fa-shield-alt"></i> Vos informations sont sécurisées.
+            </div>
+        </form>
+
+        <div id="successMessage" style="display: none; text-align: center; padding: 40px 20px;">
+            <div style="font-size: 4rem; color: #2ecc71; margin-bottom: 20px;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 style="color: var(--primary-vert); margin-bottom: 15px;">Merci pour votre inscription 🎉</h2>
+            <p style="color: var(--text-gray); font-size: 1.1rem; line-height: 1.6;">
+                Ton dossier a été transmis avec succès à l'équipe **BÉNIN BOOST**. <br>
+                Un conseiller te contactera sur **WhatsApp** très bientôt.
+            </p>
+            <a href="formations.html" class="btn-submit" style="text-decoration: none; margin-top: 30px; display: inline-flex;">
+                Retour aux formations
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("registrationForm");
+    const successMessage = document.getElementById("successMessage");
+    const btnSubmit = document.getElementById("btnSubmit");
+
+    // 1. Gestion du pré-remplissage via URL
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const formation = params.get('formation');
+        if (formation) {
+            const select = document.getElementById('formationSelect');
+            if(select) {
+                for (let option of select.options) {
+                    if (option.value.toLowerCase() === formation.toLowerCase()) {
+                        select.value = option.value;
+                        break;
+                    }
+                }
+            }
+        }
+    });
+
+    // 2. Gestion de l'envoi AJAX (Sans redirection)
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault(); 
+        
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Envoi en cours...';
+
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch("https://formspree.io/f/xqewepol", {
+                method: "POST",
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                form.style.display = "none";
+                successMessage.style.display = "block";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const errorData = await response.json();
+                alert("Erreur : " + errorData.errors.map(e => e.message).join(", "));
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = 'Valider mon inscription <i class="fas fa-paper-plane"></i>';
+            }
+        } catch (error) {
+            alert("Erreur réseau. Vérifie ta connexion.");
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = 'Valider mon inscription <i class="fas fa-paper-plane"></i>';
+        }
+    });
+</script>
+</body>
+</html>
